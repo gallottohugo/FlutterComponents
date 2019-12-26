@@ -11,7 +11,8 @@ class CardPage extends StatelessWidget {
 				padding: EdgeInsets.all(5),
 				children: <Widget>[
 					_cardType1(),
-					_cardType1() 
+					SizedBox(height: 30),
+					_cardType2()
 				],
 			),
     	);
@@ -47,6 +48,29 @@ class CardPage extends StatelessWidget {
 							)
 						],
 					),
+				],
+			),
+		);
+
+
+
+	}
+
+	Widget _cardType2(){
+		return Card(
+			child: Column(
+				children: <Widget>[
+					FadeInImage(
+						image: NetworkImage('http://t1.gstatic.com/images?q=tbn:ANd9GcQz-HknT7ciZq9Gcng-OqZ-sd_l1y2Xp97NHeLgZh-Q5jZeBJcSdyh40G4veotn_V9tnDsX-FyDpsBIMS4q8Uo'),
+						placeholder: AssetImage('assets/down.gif'),
+						fadeInDuration: Duration(milliseconds: 250),
+						height: 350,
+						fit: BoxFit.cover,
+						
+					),
+					Container(
+						child: Text('Descripción de la imagen')
+					)
 				],
 			),
 		);
