@@ -29,11 +29,8 @@ class ListViewPage extends StatelessWidget {
 				leading: getIcon(item['icon']),
 				trailing: Icon(Icons.arrow_forward_ios),
 				onTap: (){
-					final route = MaterialPageRoute(
-						builder: (context) => AlertPage()
-						
-					);
-					Navigator.push(context, route);
+					
+					Navigator.pushNamed(context, item['ruta']);
 				},
 			);
 			listWidget..add(listTile)
