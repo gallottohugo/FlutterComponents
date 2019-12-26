@@ -8,7 +8,7 @@ class CardPage extends StatelessWidget {
 				title: Text('Card page'),
 			),
 			body: ListView(
-				padding: EdgeInsets.all(5),
+				padding: EdgeInsets.all(15),
 				children: <Widget>[
 					_cardType1(),
 					SizedBox(height: 30),
@@ -21,6 +21,8 @@ class CardPage extends StatelessWidget {
 
 	Widget _cardType1(){
 		return Card(
+			elevation: 10,
+			shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
 			child: Column(
 				children: <Widget>[
 					ListTile(
@@ -45,7 +47,8 @@ class CardPage extends StatelessWidget {
 								textColor: Colors.white,
 								child: Text('Ok'),
 								onPressed: (){		},
-							)
+							),
+							Divider(endIndent: 5,),
 						],
 					),
 				],
@@ -58,6 +61,7 @@ class CardPage extends StatelessWidget {
 
 	Widget _cardType2(){
 		return Card(
+			shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
 			child: Column(
 				children: <Widget>[
 					FadeInImage(
@@ -66,7 +70,7 @@ class CardPage extends StatelessWidget {
 						fadeInDuration: Duration(milliseconds: 250),
 						height: 350,
 						fit: BoxFit.cover,
-						
+
 					),
 					Container(
 						child: Text('Descripción de la imagen')
