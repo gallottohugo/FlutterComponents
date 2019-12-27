@@ -9,11 +9,13 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
 
-	String _name = "";
-	String _email = "";
-	String _password = "";
+	String _name = '';
+	String _email = '';
+	String _password = '';
 	String _date = '';
 	TextEditingController _textEditingController = new TextEditingController();
+	List<String> _status = ['','soltero', 'casado', 'comprometido', 'viudo'];
+	String _statusSelected = '';
 
   	@override
   	Widget build(BuildContext context) {
@@ -32,6 +34,12 @@ class _InputPageState extends State<InputPage> {
 					Divider(),
 					_newDate(context),
 					Divider(),
+					_newDropDown(),
+					Divider(thickness: 0.0,),
+					Divider(
+						height: 100.0,
+						color: Colors.white,
+					),
 					_newPerson()
 				],
 			),
@@ -155,13 +163,59 @@ class _InputPageState extends State<InputPage> {
 		}
 		return dateTime;
 	}
+	
+	
+	List<DropdownMenuItem<String>> _listDropDownItems() {
+		List<DropdownMenuItem<String>> _list = new List();
+		for (String item in _status){
+			_list.add(DropdownMenuItem(
+				child: Text(item),
+				value: item,
+			));
+		}
+		return _list;
+	}
+	
+	Widget _newDropDown(){
+		return Row(
+			children: <Widget>[
+				Icon(Icons.person_pin_circle, color: Colors.blue,),
+				SizedBox(width: 30.0,),
+				Container(
+					child: Text('Estado civil'),
+				),
+				SizedBox(width: 30.0,),
+				DropdownButton(
+					value: _statusSelected,
+					items: _listDropDownItems() ,
+					onChanged: (value){
+						setState(() {
+							_statusSelected = value;
+						});
+					},
+				)
+			],
+			
+		);
+		
+	}
+	
 	Widget _newPerson(){
 		return Column(
 			children: <Widget>[
-				ListTile(title: Text('Nombre: $_name'),),
-				ListTile(title: Text('Email: $_email'),),
-				ListTile(title: Text('Password: $_password'),),
-				ListTile(title: Text('Date: $_date'),),
+				Row(
+					children: <Widget>[
+						Icon(Icons.format_list_bulleted, color: Colors.blue, size: 30.0),
+						SizedBox(width: 10.0,),
+						Text('People',style: TextStyle(color: Colors.blue, fontSize: 20.0),),
+					],
+				),
+				ListTile(
+					leading: Icon(Icons.person),
+					title: Text('Nombre: $_name'),
+					subtitle: Text('$_email'),
+					trailing: Text('$_statusSelected'),
+				),
 			],
 		);
 		
