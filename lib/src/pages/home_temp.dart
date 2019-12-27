@@ -17,7 +17,7 @@ final _options = ['uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete',
     	);
 	}
 
-
+  /*
 	List<Widget> _itemsCreate(){
 		List<Widget> _list = new List<Widget>();
 		for (String item in _options){
@@ -26,7 +26,7 @@ final _options = ['uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete',
 		}
 		return _list;
 	}
-
+  */
 	List<Widget> _itemsCreateShort() {
 		return _options.map( (item) {
 			return Column(

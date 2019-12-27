@@ -164,7 +164,6 @@ class _InputPageState extends State<InputPage> {
 		return dateTime;
 	}
 	
-	
 	List<DropdownMenuItem<String>> _listDropDownItems() {
 		List<DropdownMenuItem<String>> _list = new List();
 		for (String item in _status){
