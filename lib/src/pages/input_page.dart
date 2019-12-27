@@ -12,6 +12,8 @@ class _InputPageState extends State<InputPage> {
 	String _name = "";
 	String _email = "";
 	String _password = "";
+	String _date = '';
+	TextEditingController _textEditingController = new TextEditingController();
 
   	@override
   	Widget build(BuildContext context) {
@@ -27,6 +29,8 @@ class _InputPageState extends State<InputPage> {
 					_newEmail(),
 					Divider(),
 					_newPassword(),
+					Divider(),
+					_newDate(context),
 					Divider(),
 					_newPerson()
 				],
@@ -105,12 +109,59 @@ class _InputPageState extends State<InputPage> {
 		);
 	}
 
+	Widget _newDate(BuildContext context){
+		return TextField(
+			controller: _textEditingController,
+			enableInteractiveSelection: false,
+			decoration: InputDecoration(
+				border: OutlineInputBorder(
+					borderRadius: BorderRadius.circular(10)
+				),
+				labelText: 'Birthdate',
+				counter: Text('Letras ${_password.length}'),
+				hintText: 'Your birthdate',
+				hintStyle: TextStyle(color: Colors.grey),
+				helperText: 'Select your birthdate please!',
+				helperStyle: TextStyle(color: Colors.grey),
+				suffixIcon: Icon(Icons.date_range),
+				icon: Icon(Icons.calendar_today)
+			),
+			onTap: (){
+				FocusScope.of(context).requestFocus(new FocusNode());
+				_selectDate(context);
+			},
+		);
+	}
+
+	_selectDate (BuildContext context) async {
+		DateTime dateTime = await showDatePicker(
+			context: context,
+	 		initialDate: DateTime.now(),
+			firstDate: DateTime(1900),
+			lastDate: DateTime(2050),
+			locale: Locale('es'),
+			builder: (BuildContext context, Widget child) {
+				return Theme(
+					data: ThemeData.dark(),
+					child: child,
+				);
+			},
+		);
+		if (dateTime != null){
+			setState(() {
+				_date = dateTime.toString();
+				_textEditingController.text = _date;
+			});
+		}
+		return dateTime;
+	}
 	Widget _newPerson(){
 		return Column(
 			children: <Widget>[
 				ListTile(title: Text('Nombre: $_name'),),
 				ListTile(title: Text('Email: $_email'),),
 				ListTile(title: Text('Password: $_password'),),
+				ListTile(title: Text('Date: $_date'),),
 			],
 		);
 		
