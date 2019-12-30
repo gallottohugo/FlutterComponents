@@ -9,7 +9,6 @@ class _SliderPageState extends State<SliderPage> {
 
 	double _currentValue = 250.0;
 	bool _blockSlider = false;
-	bool _switchValue = false;
 
   	@override
   	Widget build(BuildContext context) {
@@ -74,9 +73,12 @@ class _SliderPageState extends State<SliderPage> {
 		return SwitchListTile(
 			title: Text('Switch'),
 			subtitle: Text('Swith to show how to work'),
-			value: _switchValue,
+			value: _blockSlider,
 			onChanged: (value){
-				_switchValue = value;
+				_blockSlider = value;
+        setState(() {
+          
+        });
 			},
 		);
 	}
