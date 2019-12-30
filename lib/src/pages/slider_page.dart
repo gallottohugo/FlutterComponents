@@ -8,6 +8,8 @@ class SliderPage extends StatefulWidget {
 class _SliderPageState extends State<SliderPage> {
 
 	double _currentValue = 250.0;
+	bool _blockSlider = false;
+	bool _switchValue = false;
 
   	@override
   	Widget build(BuildContext context) {
@@ -20,13 +22,14 @@ class _SliderPageState extends State<SliderPage> {
 				child: Column(
 					children: <Widget>[
 						_newSlider(),
+						_newImage(),
 						Divider(),
-						_newImage()
+						_newCheckBox(),
+						Divider(),
+						_newSwitch()
 					],
 				),
 			)
-			
-			
 		);
 	}
 
@@ -36,9 +39,8 @@ class _SliderPageState extends State<SliderPage> {
 			value: _currentValue,
 			min: 50.0,
 			max: 500.0,
-			divisions: 50,
 			activeColor: Colors.green,
-			onChanged: (value){
+			onChanged: (_blockSlider) ? null : (value){
 				setState(() {
 				 	_currentValue = value;
 				});
@@ -53,7 +55,32 @@ class _SliderPageState extends State<SliderPage> {
 			image: NetworkImage('https://static3.abc.es/media/play/2019/01/24/ragnar-floki-k7qE--620x349@abc.jpg'),
 			width: _currentValue,
 		);
-
-		
 	}
+
+	Widget _newCheckBox(){
+		return CheckboxListTile(
+			value: _blockSlider,
+			title: Text('Active/Block image'),
+			subtitle: Text('Click here to active/inactive slider.'),
+			onChanged: (value){ 
+				setState(() {
+					_blockSlider = value;
+				});
+			},
+		);
+	}
+
+	Widget _newSwitch(){
+		return SwitchListTile(
+			title: Text('Switch'),
+			subtitle: Text('Swith to show how to work'),
+			value: _switchValue,
+			onChanged: (value){
+				_switchValue = value;
+			},
+		);
+	}
+
+
+	
 }
