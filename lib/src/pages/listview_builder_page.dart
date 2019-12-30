@@ -51,25 +51,38 @@ class _ListviewBuilderPageState extends State<ListviewBuilderPage> {
   	}
 
 	Widget _newListView(){
-		return ListView.builder(
-			controller: _scrollController,
-			itemCount: _listNumbers.length,
-			itemBuilder: (BuildContext context, int index){
-				final _itemImg = _listNumbers[index];
-				return Column(
-					children: <Widget>[
-						FadeInImage(
-							image: NetworkImage('https://picsum.photos/500/300/?image=$_itemImg'),
-							placeholder: AssetImage('assets/load.gif'),
-						),
-						Divider()
-					],
-				);
-
-				
-			},
+		return RefreshIndicator(
+			onRefresh: _getPage1,
+			child: ListView.builder(
+		  		controller: _scrollController,
+		  		itemCount: _listNumbers.length,
+		  		itemBuilder: (BuildContext context, int index){
+		  			final _itemImg = _listNumbers[index];
+		  			return Column(
+		  				children: <Widget>[
+		  					FadeInImage(
+		  						image: NetworkImage('https://picsum.photos/500/300/?image=$_itemImg'),
+		  						placeholder: AssetImage('assets/load.gif'),
+		  					),
+		  					Divider()
+		  				],
+		  			);
+		  		},
+		  	),
 		);
 	}
+
+	Future<Null> _getPage1() async {
+		final duration = new Duration(seconds: 2);
+		new Timer(duration, (){
+			_listNumbers.clear();
+			_lastItem++;
+			_add10images();
+		});
+
+		return Future.delayed(duration);
+	}
+
 
 	Widget  _newLoading(){
 		if (isLoading){
@@ -107,13 +120,12 @@ class _ListviewBuilderPageState extends State<ListviewBuilderPage> {
 		new Timer(duration, resposeHTTP);
 	}
 
-
 	void resposeHTTP(){
 		isLoading = false;
 		_scrollController.animateTo(
 			_scrollController.position.pixels + 100,
 			curve:	Curves.fastOutSlowIn,
-			duration: new Duration(seconds: 1)
+			duration: new Duration(seconds: 2)
 		);
 		_add10images();
 	}
